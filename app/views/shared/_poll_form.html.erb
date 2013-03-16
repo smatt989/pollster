@@ -2,7 +2,7 @@
 
 
 <%= form_for(@poll) do |p| %>
-  <%= render 'shared/error_messages', object: p.object %>
+  <!--<%= render 'shared/error_messages', object: p.object %>-->
   <div class="field">
     <%= p.text_area :content, placeholder: "Write a new poll question..." %>
   </div>
