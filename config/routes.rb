@@ -1,4 +1,8 @@
 PollsterApp::Application.routes.draw do
+  get "users/new"
+
+  get "polls/new"
+
   root to: 'static_pages#home'
   match "/auth/:provider/callback" => "sessions#create"
   match "/signout" => "sessions#destroy", :as => :signout
