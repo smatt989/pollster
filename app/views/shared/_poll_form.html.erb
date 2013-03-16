@@ -1,7 +1,7 @@
 <h1>Create a new poll </h1>
 
 
-<%= form_for(@poll) do |p| %>
+<%= form_for Poll.new do |p| %>
   <!--<%= render 'shared/error_messages', object: p.object %>-->
   <div class="field">
     <%= p.text_area :content, placeholder: "Write a new poll question..." %>
