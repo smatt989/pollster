@@ -1,6 +1,6 @@
 PollsterApp::Application.routes.draw do
   resources :users, only: [:show, :index]
-  resources :polls, only: [:create, :show, :update]
+  resources :polls, only: [:create, :index, :show, :update]
 
   root to: 'static_pages#home'
   match "/auth/:provider/callback" => "sessions#create"
