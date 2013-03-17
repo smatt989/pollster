@@ -3,11 +3,12 @@
 <br />
 <p><b>Answers: </b></p>
 <br />
-<%= @poll.answer_1 %>
-<%= @poll.answer_2 %>
+<li id="poll_id_li" style="display:none;" data-pid="@poll.id"></li>
+<p><a class="poll_answer" href="#" data-type="1"><%= @poll.answer_1 %></a></p>
+<p><a class="poll_answer" href="#" data-type="2"><%= @poll.answer_2 %></a></p>
 <% if @poll.answer_3 %>
-  <%= @poll.answer_3 %>
+  <p><a class="poll_answer" href="#" data-type="3"><%= @poll.answer_3 %></a></p>
 <% end %>
 <% if @poll.answer_4 %>
-  <%= @poll.answer_4 %>
+  <p><a class="poll_answer" href="#" data-type="4"><%= @poll.answer_4 %></a></p>
 <% end %>
