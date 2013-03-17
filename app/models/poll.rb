@@ -11,13 +11,5 @@ class Poll < ActiveRecord::Base
   validates :answer_4, length: { minimum: 1, maximum: 50 }, :allow_blank => true
 
   default_scope order: 'polls.created_at DESC'
-  def self.random
-  	@current_user ||= User.find_by_uid(session[:user_id]) if session[:user_id]
-  	@completed_polls = []
-  	@current_user.responses.each do |r|
-  	  @completed_polls.push r.poll_id
-  	end
-    Poll.where('id not in (?)', @completed_polls.blank? ? '' : @completed_polls)
-  end
 
 end
