@@ -22,8 +22,14 @@ class PollsController < ApplicationController
   end
 
   def random
-    @poll = Poll.random
+    @completed_polls = []
+    current_user.responses.each do |r|
+      @completed_polls.push r.poll_id
+    end
+    @poll = Poll.where('id not in (?)', @completed_polls.blank? ? '' : @completed_polls)
     redirect_to poll_path(:id => @poll.id)
+  end
+
   end
 
 end
