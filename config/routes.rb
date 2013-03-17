@@ -10,4 +10,5 @@ PollsterApp::Application.routes.draw do
   match "/signout" => "sessions#destroy", :as => :signout
   match '/about', to: 'static_pages#about'
   match '/help', to: 'static_pages#help'
+  match '/polls/random', to: 'polls#random'
 end
