@@ -14,7 +14,7 @@ class ResponsesController < ApplicationController
   end
 
   def show
-  	@response = response.find(params[:id])
+  	@response = Response.find(params[:id])
   	@user = User.find_by_id(@response.user_id)
   end
 
