@@ -7,6 +7,7 @@ $(document).on("click", ".poll_answer", function(){
 		type: "post",
 		url: "/responses",
 		data: response_obj,
+		dataTye: "script",
 		success: function(){
 			alert('created!');
 		}
