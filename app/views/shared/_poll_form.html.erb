@@ -2,13 +2,13 @@
 
 
 <%= form_for Poll.new do |p| %>
-  <!--<%= render 'shared/error_messages', object: p.object %>-->
+  <%= render 'shared/error_messages', object: p.object %>
   <div class="field">
     <%= p.text_area :content, placeholder: "Write a new poll question..." %>
-    <%= p.text_field :answer_1, placeholder: "Answer 1" %>
-    <%= p.text_field :answer_2, placeholder: "Answer 2" %>
-    <%= p.text_field :answer_3, placeholder: "Answer 3" %>
-    <%= p.text_field :answer_4, placeholder: "Answer 4" %>
+    <p>1)<%= p.text_field :answer_1, placeholder: "Answer 1" %></p>
+    <p>2)<%= p.text_field :answer_2, placeholder: "Answer 2" %></p>
+    <p>3)<%= p.text_field :answer_3, placeholder: "Answer 3" %></p>
+    <p>4)<%= p.text_field :answer_4, placeholder: "Answer 4" %></p>
   </div>
   <%= p.submit "Create", class: "btn btn-large btn-primary" %>
 <% end %>

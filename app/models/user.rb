@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :provider, :uid
   has_many :polls, dependent: :destroy
+  has_many :responses, dependent: :destroy
 
   validates :name, presence: true
   validates :uid, presence: true

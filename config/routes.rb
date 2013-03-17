@@ -1,4 +1,6 @@
 PollsterApp::Application.routes.draw do
+  get "responses/new"
+
   resources :users, only: [:show, :index]
   resources :polls, only: [:create, :index, :show, :update]
 

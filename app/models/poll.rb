@@ -1,6 +1,7 @@
 class Poll < ActiveRecord::Base
   attr_accessible :content, :answer_1, :answer_2, :answer_3, :answer_4
   belongs_to :user
+  has_many :responses
 
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
