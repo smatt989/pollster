@@ -1,8 +1,7 @@
 PollsterApp::Application.routes.draw do
-  get "responses/new"
 
   resources :users, only: [:show, :index]
-  resources :polls, only: [:create, :index, :show, :update, :random]
+  resources :polls, only: [:create, :index, :show, :update]
   resources :responses, only: [:create, :show]
 
   root to: 'static_pages#home'
