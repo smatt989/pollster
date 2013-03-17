@@ -27,7 +27,10 @@ class PollsController < ApplicationController
       @completed_polls.push r.poll_id
     end
     @poll = Poll.where('id not in (?)', @completed_polls.blank? ? '' : @completed_polls)
-    redirect_to @poll
+      respond_to do |format|
+        format.js
+        format.html { redirect_to poll_path(@poll) }
+      end
   end
 
 
