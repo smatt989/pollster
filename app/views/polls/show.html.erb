@@ -1,1 +1,13 @@
 <h1>Show poll</h1>
+<%= @poll.content %>
+<br />
+<p><b>Answers: </b></p>
+<br />
+<%= @poll.answer_1 %>
+<%= @poll.answer_2 %>
+<% if @poll.answer_3 %>
+  <%= @poll.answer_3 %>
+<% end %>
+<% if @poll.answer_4 %>
+  <%= @poll.answer_4 %>
+<% end %>

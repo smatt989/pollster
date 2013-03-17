@@ -9,7 +9,7 @@ class PollsController < ApplicationController
       redirect_to root_url
     else
       flash[:error] = "failed to create poll"
-      render 'static_pages/home'
+      render '/'
     end
   end
 

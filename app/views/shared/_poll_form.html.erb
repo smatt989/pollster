@@ -5,6 +5,10 @@
   <!--<%= render 'shared/error_messages', object: p.object %>-->
   <div class="field">
     <%= p.text_area :content, placeholder: "Write a new poll question..." %>
+    <%= p.textfield :answer_1, placeholder: "Answer 1" %>
+    <%= p.textfield :answer_2, placeholder: "Answer 2" %>
+    <%= p.textfield :answer_3, placeholder: "Answer 3" %>
+    <%= p.textfield :answer_4, placeholder: "Answer 4" %>
   </div>
   <%= p.submit "Create", class: "btn btn-large btn-primary" %>
 <% end %>
