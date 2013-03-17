@@ -6,11 +6,15 @@ class ResponsesController < ApplicationController
     @response = current_user.responses.build(params[:response])
     if @response.save
       flash[:success] = "response created!"
-      redirect_to root_url
+      respond_to do |format|
+        format.js
+        format.html { redirect_to root_path }
+      end
     else
       flash[:error] = "failed to create response"
       render '/'
     end
+
   end
 
   def show

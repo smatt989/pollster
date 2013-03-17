@@ -1,9 +1,14 @@
 <h1>Show user</h1>
 <h3>Whattup <%= @user.name %></h3>
-    <% if @user.polls.any? %>
-      <h3>Polls (<%= @user.polls.count %>)</h3>
-      <ol class="polls">
-        <%= render @polls %>
-      </ol>
-      <%= will_paginate @polls %>
-    <% end %>
+<% if @user.polls.any? %>
+	<h3>Polls (<%= @user.polls.count %>)</h3>
+	<ol class="polls">
+		<%= render @polls %>
+	</ol>
+	<%= will_paginate @polls %>
+<% end %>
+<br />
+<br />
+<% if @user.respones.any? %>
+	<h3>Responses (<%= @user.responses.count %>)</h3>
+<% end %>
