@@ -3,7 +3,7 @@
 <br />
 <p><b>Answers: </b></p>
 <br />
-<li id="poll_id_li" style="display:none;" data-pid=@poll.id></li>
+<li id="poll_id_li" style="display:none;" data-pid=<%=@poll.id%>></li>
 <p><a class="poll_answer" href="#" data-type="1"><%= @poll.answer_1 %></a></p>
 <p><a class="poll_answer" href="#" data-type="2"><%= @poll.answer_2 %></a></p>
 <% if @poll.answer_3 %>
