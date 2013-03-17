@@ -22,4 +22,5 @@ class ResponsesController < ApplicationController
   	@user = User.find_by_id(@response.user_id)
   end
 
+
 end

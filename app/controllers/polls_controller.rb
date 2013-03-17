@@ -21,4 +21,9 @@ class PollsController < ApplicationController
   	@poll = Poll.find(params[:id])
   end
 
+  def random
+    @poll = Poll.random
+    redirect_to poll_path(:id => @poll.id)
+  end
+
 end
