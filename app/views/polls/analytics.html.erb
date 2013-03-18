@@ -1,0 +1,11 @@
+<h1><%= @poll.content %><h1>
+<h3>Responses</h3>
+<br />
+<p>1) <%= @poll.answer_1 %>: <b><%= @responses1.count %></b></p>
+<p>2) <%= @poll.answer_2 %>: <b><%= @responses2.count %></b></p>
+<% unless @poll.answer_3.blank? %>
+<p>3) <%= @poll.answer_3 %>: <b><%= @responses3.count %></b></p>
+<% end %>
+<% unless @poll.answer_4.blank? %>
+<p>4) <%= @poll.answer_4 %>: <b><%= @responses4.count %></b></p>
+<% end %>

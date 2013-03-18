@@ -9,7 +9,6 @@ $(document).on("click", ".poll_answer", function(){
 		data:{ response: response_obj},
 		dataTye: "script",
 		success: function(){
-			alert('created!');
 		}
 	});
 })

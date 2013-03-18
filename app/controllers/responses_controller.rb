@@ -7,8 +7,7 @@ class ResponsesController < ApplicationController
     if @response.save
       flash[:success] = "response created!"
       respond_to do |format|
-        format.js
-        format.html { redirect_to root_path }
+        format.html { redirect_to "/polls/#{@response.poll_id}/analytics" }
       end
     else
       flash[:error] = "failed to create response"

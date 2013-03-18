@@ -1,7 +1,9 @@
 PollsterApp::Application.routes.draw do
 
   resources :users, only: [:show, :index]
-  resources :polls, only: [:create, :index, :show, :update]
+  resources :polls, only: [:create, :index, :show, :update] do
+    get :analytics, :on => :member
+  end
   resources :responses, only: [:create, :show]
 
   root to: 'static_pages#home'
