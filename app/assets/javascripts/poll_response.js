@@ -6,7 +6,7 @@ $(document).on("click", ".poll_answer", function(){
 	$.ajax({
 		type: "post",
 		url: "/responses",
-		data: response_obj,
+		data:{ response: response_obj},
 		dataTye: "script",
 		success: function(){
 			alert('created!');
