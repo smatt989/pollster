@@ -26,11 +26,11 @@ class PollsController < ApplicationController
     current_user.responses.each do |r|
       @completed_polls.push r.poll_id
     end
-    #@poll = Poll.where('id not in (?)', @completed_polls.blank? ? '' : @completed_polls).limit(1)
-      #respond_to do |format|
-      #  format.js
-      #  format.html { redirect_to poll_path(@poll) }
-      #end
+    @poll = Poll.where('id not in (?)', @completed_polls.blank? ? '' : @completed_polls).limit(1)
+     #respond_to do |format|
+     #  format.js
+     #  format.html { redirect_to poll_path(@poll) }
+     #end
   end
 
 
