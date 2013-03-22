@@ -27,9 +27,9 @@ class PollsController < ApplicationController
       @completed_polls.push r.poll_id
     end
     @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls.blank? ? '' : @completed_polls] ) 
-     redirect_to poll_path(@poll)
+    redirect_to poll_path(@poll)
   end
-  
+
   def analytics
     @poll = Poll.find(params[:id])
     @all_responses = []
@@ -58,5 +58,32 @@ class PollsController < ApplicationController
 
   end
 
+  def previous
+    @response = current_user.responses.find_by_poll_id(params[:id])
+    if(@response) #if not hitting previous from the most recent unanswered poll
+      @poll = Poll.find_by_id((current_user.responses.find(:last, :conditions => ["id < (?)", @response.id])).poll_id) unless @response == current_user.responses.find(:first)
+    else #if hitting previous form teh most recent unanswered poll
+      @poll = Poll.find_by_id((current_user.responses.find(:last)).poll_id)
+    end
+    if(@poll) #if not the first poll taken
+      redirect_to analytics_poll_path(@poll)
+    else #if the first poll taken
+      redirect_to root_path
+    end
+  end
+
+  def next
+    @response = current_user.responses.find_by_poll_id(params[:id])
+    if(@response) #if not the -1st poll (not on the screen that says you have no more polls)
+      @poll = Poll.find_by_id((current_user.responses.find(:first, :conditions => ["id > (?)", @response.id])).poll_id) unless @response == current_user.responses.find(:last)
+    else
+      @poll = Poll.find_by_id((current_user.responses.find(:first)))
+    end
+    if(@poll) #if not the last poll (the random one they should be doing now)
+      redirect_to analytics_poll_path(@poll)
+    else #if the last poll (the random one)
+      redirect_to random_path
+    end
+  end
 
 end
