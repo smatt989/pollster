@@ -12,7 +12,10 @@ class ResponsesController < ApplicationController
       end
     else
       flash[:error] = "failed to create response"
-      render '/'
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render :json => @response.errors.full_messages.to_json }
+      end
     end
 
   end

@@ -6,10 +6,16 @@ class PollsController < ApplicationController
     @poll = current_user.polls.build(params[:poll])
     if @poll.save
       flash[:success] = "poll created!"
-      redirect_to root_url
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render :json => { status: "success" } }
+      end
     else
       flash[:error] = "failed to create poll"
-      render '/'
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render :json => @poll.errors.full_messages.to_json }
+      end
     end
   end
 
@@ -23,16 +29,16 @@ class PollsController < ApplicationController
       format.html
       format.json do
         answer_array = []
-        answer_1 = { content: @poll.answer_1, type: "1" }
-        answer_2 = { content: @poll.answer_2, type: "2" }
+        answer_1 = { content: @poll.answer_1, type: 1 }
+        answer_2 = { content: @poll.answer_2, type: 2 }
         answer_array.push answer_1
         answer_array.push answer_2
         unless(@poll.answer_3.blank?)
-          answer_3 = { content: @poll.answer_3, type: "3" }
+          answer_3 = { content: @poll.answer_3, type: 3 }
           answer_array.push answer_3
         end
         unless(@poll.answer_4.blank?)
-          answer_4 = { content: @poll.answer_4, type: "4" }
+          answer_4 = { content: @poll.answer_4, type: 4 }
           answer_array.push answer_4
         end
         jsonreturn = { id: @poll.id, content: @poll.content, answers: answer_array }
