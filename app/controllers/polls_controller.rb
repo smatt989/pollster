@@ -27,7 +27,10 @@ class PollsController < ApplicationController
       @completed_polls.push r.poll_id
     end
     @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls.blank? ? '' : @completed_polls] ) 
-    redirect_to poll_path(@poll)
+    respond_to do |format|
+      format.html { redirect_to poll_path(@poll) }
+      format.json { render json: @poll.as_json }
+    end
   end
 
   def created_index
@@ -69,7 +72,14 @@ class PollsController < ApplicationController
         @responses4.push r
       end
     end
-
+    respond_to do |format|
+      format.html
+      format.json do
+        jsonreturn = {}
+        jsonreturn[:poll] = { id: @poll.id, content: @poll.content }
+        render :json => jsonreturn
+      end
+    end
   end
 
   def previous
