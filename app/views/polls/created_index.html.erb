@@ -1,8 +1,4 @@
 <h1>Poll Index</h1>
-<%= will_paginate %>
-
-<ul class="polls">
-  <%= render @polls %>
-</ul>
-
-<%= will_paginate %>
+<% @polls.each do |p| %>
+<p><%= link_to p.content, poll_path(p.id) %></p>
+<% end %>

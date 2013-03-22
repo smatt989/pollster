@@ -35,7 +35,6 @@ class PollsController < ApplicationController
     current_user.polls.each do |p|
       @polls.push p
     end
-    @polls.paginate(page: params[:page])
   end
 
   def responded_index
@@ -43,7 +42,6 @@ class PollsController < ApplicationController
     current_user.responses.each do |r|
       @polls.push Poll.find_by_id(r.poll_id)
     end
-    @polls.paginate(page: params[:page])
   end
 
   def analytics
