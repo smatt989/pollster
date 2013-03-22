@@ -19,6 +19,26 @@ class PollsController < ApplicationController
 
   def show
   	@poll = Poll.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json do
+        answer_array = []
+        answer_1 = { content: @poll.answer_1, type: "1" }
+        answer_2 = { content: @poll.answer_2, type: "2" }
+        answer_array.push answer_1
+        answer_array.push answer_2
+        unless(@poll.answer_3.blank?)
+          answer_3 = { content: @poll.answer_3, type: "3" }
+          answer_array.push answer_3
+        end
+        unless(@poll.answer_4.blank?)
+          answer_4 = { content: @poll.answer_4, type: "4" }
+          answer_array.push answer_4
+        end
+        jsonreturn = { id: @poll.id, content: @poll.content, answers: answer_array }
+        render :json => jsonreturn
+      end
+    end
   end
 
   def random
@@ -26,10 +46,10 @@ class PollsController < ApplicationController
     current_user.responses.each do |r|
       @completed_polls.push r.poll_id
     end
-    @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls.blank? ? '' : @completed_polls] ) 
+    @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls.blank? ? '' : @completed_polls] )
     respond_to do |format|
       format.html { redirect_to poll_path(@poll) }
-      format.json { render json: @poll.as_json }
+      format.json { redirect_to poll_path( :id => @poll.id, :format => :json ) }
     end
   end
 
@@ -82,7 +102,15 @@ class PollsController < ApplicationController
         answer_2 = { content: @poll.answer_2, count: @responses2.count }
         answer_array.push answer_1
         answer_array.push answer_2
-        if(!@poll.answer_3.blank?)
+        unless(@poll.answer_3.blank?)
+          answer_3 = { content: @poll.answer_3, count: @responses3.count }
+          answer_array.push answer_3
+        end
+        unless(@poll.answer_4.blank?)
+          answer_4 = { content: @poll.answer_4, count: @responses4.count }
+          answer_array.push answer_4
+        end
+        jsonreturn[:analytics] = answer_array
         render :json => jsonreturn
       end
     end
