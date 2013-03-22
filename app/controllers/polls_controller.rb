@@ -47,9 +47,9 @@ class PollsController < ApplicationController
       @completed_polls.push r.poll_id
     end
     if(@completed_polls.blank?)
-      @poll = Poll.find(:first)
+      @poll = Poll.find(:first, :order => "RANDOM()")
     else
-      @poll = Poll.all(:order => 'RANDOM()', :limit => 1, :conditions => ['id not in (?)', @completed_polls] )
+      @poll = Poll.find(:first, :order => "RANDOM()", :conditions => ['id not in (?)', @completed_polls] )
     end
     respond_to do |format|
       format.html { redirect_to poll_path(@poll) }

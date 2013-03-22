@@ -10,6 +10,6 @@ class Poll < ActiveRecord::Base
   validates :answer_3, length: { minimum: 1, maximum: 50 }, :allow_blank => true
   validates :answer_4, length: { minimum: 1, maximum: 50 }, :allow_blank => true
 
-  default_scope order: 'polls.created_at DESC'
+  #default_scope order: 'polls.created_at DESC'
 
 end

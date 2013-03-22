@@ -6,9 +6,6 @@ $(document).on("click", ".poll_answer", function(){
 	$.ajax({
 		type: "post",
 		url: "/responses",
-		data:{ response: response_obj},
-		dataType: "script",
-		success: function(){
-		}
+		data:{ response: response_obj}
 	});
 })
