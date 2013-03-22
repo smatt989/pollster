@@ -33,14 +33,14 @@ class PollsController < ApplicationController
   def created_index
     @polls = []
     current_user.polls.each do |p|
-      @polls.push p.id
+      @polls.push p
     end
   end
 
   def responded_index
     @polls = []
     current_user.responses.each do |r|
-      @polls.push r.poll_id
+      @polls.push Poll.find_by_id(r.poll_id)
     end
   end
 
