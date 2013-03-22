@@ -30,6 +30,20 @@ class PollsController < ApplicationController
     redirect_to poll_path(@poll)
   end
 
+  def created_index
+    @polls = []
+    current_user.polls.each do |p|
+      @polls.push p.id
+    end
+  end
+
+  def responded_index
+    @polls = []
+    current_user.responses.each do |r|
+      @polls.push r.poll_id
+    end
+  end
+
   def analytics
     @poll = Poll.find(params[:id])
     @all_responses = []

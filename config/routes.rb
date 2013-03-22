@@ -14,4 +14,6 @@ PollsterApp::Application.routes.draw do
   match '/about', to: 'static_pages#about'
   match '/help', to: 'static_pages#help'
   match '/random', to: 'polls#random'
+  match '/created', to: 'polls#created_index'
+  match '/responded', to: 'polls#responded_index'
 end
