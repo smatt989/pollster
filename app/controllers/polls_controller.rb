@@ -55,10 +55,10 @@ class PollsController < ApplicationController
     end
     @responses1 = []
     @responses2 = []
-    if(@poll.answer_3.blank?)
+    unless(@poll.answer_3.blank?)
       @responses3 = []
     end
-    if(@poll.answer_4.blank?)
+    unless(@poll.answer_4.blank?)
       @responses4 = []
     end
     @all_responses.each do |r|
@@ -77,6 +77,12 @@ class PollsController < ApplicationController
       format.json do
         jsonreturn = {}
         jsonreturn[:poll] = { id: @poll.id, content: @poll.content }
+        answer_array = []
+        answer_1 = { content: @poll.answer_1, count: @responses1.count }
+        answer_2 = { content: @poll.answer_2, count: @responses2.count }
+        answer_array.push answer_1
+        answer_array.push answer_2
+        if(!@poll.answer_3.blank?)
         render :json => jsonreturn
       end
     end
