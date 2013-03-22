@@ -46,7 +46,11 @@ class PollsController < ApplicationController
     current_user.responses.each do |r|
       @completed_polls.push r.poll_id
     end
-    @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls] )
+    if(@completed_polls.blank?)
+      @poll = Poll.find(:first)
+    else
+      @poll = Poll.find(:first, :conditions => ['id not in (?)', @completed_polls] )
+    end
     respond_to do |format|
       format.html { redirect_to poll_path(@poll) }
       format.json { redirect_to poll_path( :id => @poll.id, :format => :json ) }
