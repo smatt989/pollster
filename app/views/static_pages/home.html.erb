@@ -1,7 +1,7 @@
 <h1>Pollster</h1>
 <p>This is the homepage for Pollster</p>
 
-<% if current_user %>
+<% if signed_in? %>
   Welcome <%= current_user.name %>!
   <%= link_to "Sign Out", signout_path %>
   <%= render 'shared/poll_form' %>
