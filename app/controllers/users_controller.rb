@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+  before_filter :signed_in_user  
   def index
   	@users = User.paginate(page: params[:page])
   end
