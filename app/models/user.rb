@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :polls, dependent: :destroy
   has_many :responses, dependent: :destroy
 
+  before_save :create_remember_token
+
   validates :name, presence: true
   validates :uid, presence: true
   validates :provider, presence: true
@@ -13,5 +15,11 @@ class User < ActiveRecord::Base
   	  user.uid = auth["uid"]
   	  user.name = auth["info"]["name"]
   	end
+  end
+
+  private
+
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
   end
 end

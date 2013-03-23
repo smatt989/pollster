@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317045846) do
+ActiveRecord::Schema.define(:version => 20130323190109) do
 
   create_table "polls", :force => true do |t|
     t.string   "content"
@@ -37,8 +37,11 @@ ActiveRecord::Schema.define(:version => 20130317045846) do
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.string   "remember_token"
   end
+
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

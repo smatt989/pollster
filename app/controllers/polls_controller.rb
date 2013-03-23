@@ -27,23 +27,7 @@ class PollsController < ApplicationController
   	@poll = Poll.find(params[:id])
     respond_to do |format|
       format.html
-      format.json do
-        answer_array = []
-        answer_1 = { content: @poll.answer_1, type: 1 }
-        answer_2 = { content: @poll.answer_2, type: 2 }
-        answer_array.push answer_1
-        answer_array.push answer_2
-        unless(@poll.answer_3.blank?)
-          answer_3 = { content: @poll.answer_3, type: 3 }
-          answer_array.push answer_3
-        end
-        unless(@poll.answer_4.blank?)
-          answer_4 = { content: @poll.answer_4, type: 4 }
-          answer_array.push answer_4
-        end
-        jsonreturn = { id: @poll.id, content: @poll.content, answers: answer_array }
-        render :json => jsonreturn
-      end
+      format.json { ender :json => @poll.formatted_json_poll }
     end
   end
 
@@ -68,12 +52,32 @@ class PollsController < ApplicationController
     current_user.polls.each do |p|
       @polls.push p
     end
+    respond_to do |format|
+      format.html
+      format.json do
+        poll_array = []
+        @polls.each do |p|
+          poll_array.push({ id: p.id, content: p.content })
+        end
+        render :json => poll_array
+      end
+    end
   end
 
   def responded_index
     @polls = []
     current_user.responses.each do |r|
       @polls.push Poll.find_by_id(r.poll_id)
+    end
+    respond_to do |format|
+      format.html
+      format.json do
+        poll_array = []
+        @polls.each do |p|
+          poll_array.push({ id: p.id, content: p.content })
+        end
+        render :json => poll_array
+      end
     end
   end
 
@@ -104,25 +108,7 @@ class PollsController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.json do
-        jsonreturn = {}
-        jsonreturn[:poll] = { id: @poll.id, content: @poll.content }
-        answer_array = []
-        answer_1 = { content: @poll.answer_1, count: @responses1.count }
-        answer_2 = { content: @poll.answer_2, count: @responses2.count }
-        answer_array.push answer_1
-        answer_array.push answer_2
-        unless(@poll.answer_3.blank?)
-          answer_3 = { content: @poll.answer_3, count: @responses3.count }
-          answer_array.push answer_3
-        end
-        unless(@poll.answer_4.blank?)
-          answer_4 = { content: @poll.answer_4, count: @responses4.count }
-          answer_array.push answer_4
-        end
-        jsonreturn[:analytics] = answer_array
-        render :json => jsonreturn
-      end
+      format.json { render :json => @poll.formatted_json_poll_analytics(@responses1, @responses2, @responses3, @responses4) }
     end
   end
 
