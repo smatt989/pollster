@@ -125,10 +125,21 @@ class PollsController < ApplicationController
     else #if hitting previous form teh most recent unanswered poll
       @poll = Poll.find_by_id((current_user.responses.find(:last)).poll_id)
     end
-    if(@poll) #if not the first poll taken
-      redirect_to analytics_poll_path(@poll)
-    else #if the first poll taken
-      redirect_to root_path
+    respond_to do |format|
+      format.html do
+        if(@poll) #if not the first poll taken
+          redirect_to analytics_poll_path(@poll)
+        else #if the first poll taken
+          redirect_to root_path
+        end        
+      end
+      format.json do 
+        if(@poll)
+          redirect_to poll_path( :id => @poll.id, :format => :json ) 
+        else
+          render :json => { poll: "none" }
+        end
+      end
     end
   end
 
@@ -139,11 +150,23 @@ class PollsController < ApplicationController
     else
       @poll = Poll.find_by_id((current_user.responses.find(:first)))
     end
-    if(@poll) #if not the last poll (the random one they should be doing now)
-      redirect_to analytics_poll_path(@poll)
-    else #if the last poll (the random one)
-      redirect_to random_path
+    respond_to do |format|
+      format.html do
+        if(@poll) #if not the last poll (the random one they should be doing now)
+          redirect_to analytics_poll_path(@poll)
+        else #if the last poll (the random one)
+          redirect_to random_path
+        end      
+      end
+      format.json do 
+        if(@poll)
+          redirect_to analytics_poll_path( :id => @poll.id, :format => :json ) 
+        else
+          redirect_to random_path(:format => :json)
+        end
+      end
     end
+
   end
 
 end
