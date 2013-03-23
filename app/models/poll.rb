@@ -45,6 +45,7 @@ class Poll < ActiveRecord::Base
       answer_array.push answer_4
     end
     jsonreturn[:analytics] = answer_array
+    return jsonreturn
   end
 
 end
