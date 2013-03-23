@@ -49,6 +49,7 @@ class PollsController < ApplicationController
         else
           render :json => { poll: "none" }
         end
+      end
     end
   end
 
