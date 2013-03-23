@@ -27,10 +27,18 @@ class PollsController < ApplicationController
   end
 
   def show
-  	@poll = Poll.find(params[:id])
-    respond_to do |format|
-      format.html
-      format.json { render :json => @poll.formatted_json_poll }
+    responded = Response.where(:poll_id => params[:id], :user_id => current_user.id)
+    if(responded.blank?) #checks if user has been to this poll or not
+  	  @poll = Poll.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.json { render :json => @poll.formatted_json_poll }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.json { render :json => { responded: "double_response" } }
+      end
     end
   end
 

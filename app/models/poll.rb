@@ -48,4 +48,5 @@ class Poll < ActiveRecord::Base
     return jsonreturn
   end
 
+
 end
