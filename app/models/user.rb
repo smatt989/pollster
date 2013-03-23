@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :provider, :uid
+  attr_accessible :name, :provider, :uid, :remember_token
   has_many :polls, dependent: :destroy
   has_many :responses, dependent: :destroy
 
