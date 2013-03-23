@@ -27,7 +27,7 @@ class PollsController < ApplicationController
   	@poll = Poll.find(params[:id])
     respond_to do |format|
       format.html
-      format.json { ender :json => @poll.formatted_json_poll }
+      format.json { render :json => @poll.formatted_json_poll }
     end
   end
 
