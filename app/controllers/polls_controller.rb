@@ -47,7 +47,7 @@ class PollsController < ApplicationController
         if(@poll)
           redirect_to poll_path( :id => @poll.id, :format => :json ) 
         else
-          render :json => { pole: "none" }
+          render :json => { poll: "none" }
         end
     end
   end
