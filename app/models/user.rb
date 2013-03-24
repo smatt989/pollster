@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :provider, :uid, :remember_token
+  attr_accessible :name, :provider, :uid, :remember_token, :gender, :birthday, :hometown, :photo_link, :education, :country_code
   has_many :polls, dependent: :destroy
   has_many :responses, dependent: :destroy
 
@@ -14,6 +14,12 @@ class User < ActiveRecord::Base
   	  user.provider = auth["provider"]
   	  user.uid = auth["uid"]
   	  user.name = auth["info"]["name"]
+      user.gender = auth["extra"]["raw_info"]["gender"]
+      user.birthday = auth["extra"]["raw_info"]["birthday"]
+      user.hometown = auth["extra"]["raw_info"]["hometown"]
+      user.photo_link = "http://graph.facebook.com/"+user.uid+"/picture?type=large"
+      user.education = auth["extra"]["raw_info"]["education"]
+      user.country_code = auth["extra"]["raw_info"]["locale"]
   	end
   end
 
